@@ -1,0 +1,104 @@
+PREFIX=gattoutput_from_20
+SUFFIX=.txt
+TIMEDATENOW=$PREFIX$( date +%y_%m_%d_%s)$SUFFIX
+echo $TIMEDATENOW
+echo five
+sleep 1
+echo four
+sleep 1
+echo three
+sleep 1
+echo two
+sleep 1
+echo one
+sleep 1
+##sleep 10
+echo "GO GO GO GO GO GO GO!!!!!!!!!!!!!!!!!!!!!"
+echo "GO GO GO GO GO GO GO!!!!!!!!!!!!!!!!!!!!!"
+echo "GO GO GO GO GO GO GO!!!!!!!!!!!!!!!!!!!!!"
+echo "GO GO GO GO GO GO GO!!!!!!!!!!!!!!!!!!!!!"
+echo "GO GO GO GO GO GO GO!!!!!!!!!!!!!!!!!!!!!"
+echo "GO GO GO GO GO GO GO!!!!!!!!!!!!!!!!!!!!!"
+# 
+#sudo -T 69 /usr/bin/gatttool -b D5:1A:DE:86:93:E9 -t random --char-write-req --handle=0x0025 --value=0100 --listen 2>&1 | tee $TIMEDATENOW
+sudo -T 888 /usr/bin/gatttool -b D5:1A:DE:86:93:E9 -t random --char-write-req --handle=0x0025 --value=0100 --listen 2>&1 | tee $TIMEDATENOW
+echo first
+sleep 1
+PREFIX=gattoutput_from_20
+SUFFIX=.txt
+TIMEDATENOW=$PREFIX$( date +%y_%m_%d_%s)$SUFFIX
+echo $TIMEDATENOW
+TIMEDATENOW=$PREFIX$( date +%y_%m_%d_%s)$SUFFIX
+sudo /usr/bin/gatttool -b D5:1A:DE:86:93:E9 -t random --char-write-req --handle=0x0025 --value=0100 --listen 2>&1 | tee $TIMEDATENOW
+echo second
+sleep 2
+PREFIX=gattoutput_from_20
+SUFFIX=.txt
+TIMEDATENOW=$PREFIX$( date +%y_%m_%d_%s)$SUFFIX
+echo $TIMEDATENOW
+TIMEDATENOW=$PREFIX$( date +%y_%m_%d_%s)$SUFFIX
+sudo /usr/bin/gatttool -b D5:1A:DE:86:93:E9 -t random --char-write-req --handle=0x0025 --value=0100 --listen 2>&1 | tee $TIMEDATENOW
+echo third
+sleep 2
+PREFIX=gattoutput_from_20
+SUFFIX=.txt
+TIMEDATENOW=$PREFIX$( date +%y_%m_%d_%s)$SUFFIX
+echo $TIMEDATENOW
+TIMEDATENOW=$PREFIX$( date +%y_%m_%d_%s)$SUFFIX
+sudo /usr/bin/gatttool -b D5:1A:DE:86:93:E9 -t random --char-write-req --handle=0x0025 --value=0100 --listen 2>&1 | tee $TIMEDATENOW
+echo fourth
+sleep 2
+PREFIX=gattoutput_from_20
+SUFFIX=.txt
+TIMEDATENOW=$PREFIX$( date +%y_%m_%d_%s)$SUFFIX
+echo $TIMEDATENOW
+TIMEDATENOW=$PREFIX$( date +%y_%m_%d_%s)$SUFFIX
+sudo /usr/bin/gatttool -b D5:1A:DE:86:93:E9 -t random --char-write-req --handle=0x0025 --value=0100 --listen 2>&1 | tee $TIMEDATENOW
+echo fifth
+sleep 2
+PREFIX=gattoutput_from_20
+SUFFIX=.txt
+TIMEDATENOW=$PREFIX$( date +%y_%m_%d_%s)$SUFFIX
+echo $TIMEDATENOW
+TIMEDATENOW=$PREFIX$( date +%y_%m_%d_%s)$SUFFIX
+sudo /usr/bin/gatttool -b D5:1A:DE:86:93:E9 -t random --char-write-req --handle=0x0025 --value=0100 --listen 2>&1 | tee $TIMEDATENOW
+echo sixth
+sleep 2
+PREFIX=gattoutput_from_20
+SUFFIX=.txt
+TIMEDATENOW=$PREFIX$( date +%y_%m_%d_%s)$SUFFIX
+echo $TIMEDATENOW
+TIMEDATENOW=$PREFIX$( date +%y_%m_%d_%s)$SUFFIX
+sudo /usr/bin/gatttool -b D5:1A:DE:86:93:E9 -t random --char-write-req --handle=0x0025 --value=0100 --listen 2>&1 | tee $TIMEDATENOW
+echo seventh
+sleep 2
+PREFIX=gattoutput_from_20
+SUFFIX=.txt
+TIMEDATENOW=$PREFIX$( date +%y_%m_%d_%s)$SUFFIX
+echo $TIMEDATENOW
+TIMEDATENOW=$PREFIX$( date +%y_%m_%d_%s)$SUFFIX
+sudo /usr/bin/gatttool -b D5:1A:DE:86:93:E9 -t random --char-write-req --handle=0x0025 --value=0100 --listen 2>&1 | tee $TIMEDATENOW
+echo seighth
+sleep 2
+PREFIX=gattoutput_from_20
+SUFFIX=.txt
+TIMEDATENOW=$PREFIX$( date +%y_%m_%d_%s)$SUFFIX
+echo $TIMEDATENOW
+TIMEDATENOW=$PREFIX$( date +%y_%m_%d_%s)$SUFFIX
+sudo /usr/bin/gatttool -b D5:1A:DE:86:93:E9 -t random --char-write-req --handle=0x0025 --value=0100 --listen 2>&1 | tee $TIMEDATENOW
+echo ninth
+sleep 2
+PREFIX=gattoutput_from_20
+SUFFIX=.txt
+TIMEDATENOW=$PREFIX$( date +%y_%m_%d_%s)$SUFFIX
+echo $TIMEDATENOW
+TIMEDATENOW=$PREFIX$( date +%y_%m_%d_%s)$SUFFIX
+sudo /usr/bin/gatttool -b D5:1A:DE:86:93:E9 -t random --char-write-req --handle=0x0025 --value=0100 --listen 2>&1 | tee $TIMEDATENOW
+echo tenth
+sleep 2
+PREFIX=gattoutput_from_20
+SUFFIX=.txt
+TIMEDATENOW=$PREFIX$( date +%y_%m_%d_%s)$SUFFIX
+echo $TIMEDATENOW
+TIMEDATENOW=$PREFIX$( date +%y_%m_%d_%s)$SUFFIX
+sudo /usr/bin/gatttool -b D5:1A:DE:86:93:E9 -t random --char-write-req --handle=0x0025 --value=0100 --listen 2>&1 | tee $TIMEDATENOW
