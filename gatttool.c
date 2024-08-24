@@ -74,6 +74,7 @@ struct speed_parameters { //added to store speed parameters
 	float speed_gradient; //added to store speed parameters
 	float speed_delta;    //added to store speed parameters
 	float top_speed;      //added to store speed parameters
+	int   last_thr0ttle_position; //ADDED
 }  spd_parameters;        //added to store speed parameters
 struct speed_parameters param_one;  //added to store speed parameters
 FILE *parameter_storage_file;       // added to get speed parameters
@@ -217,6 +218,9 @@ static void events_handler(const uint8_t *pdu, uint16_t len, gpointer user_data)
           //return 1;
           return;
         }
+    parameter_storage_file = fopen("/home/toddwestley/Downloads/bluez-5.66/bluez-5.66/attrib/speed_parameters.txt","w");
+    fprintf(parameter_storage_file,"%f\n%f\n%f\n%f\n", param_one.speed_gradient, param_one.speed_delta,param_one.top_speed, param_one.last_thr0ttle_position);	
+    fclose(parameter_storage_file);
 	//addition ends here
 	g_print("\n");	
 	if (pdu[0] == ATT_OP_HANDLE_NOTIFY)
@@ -664,11 +668,12 @@ int main(int argc, char *argv[])
 {   //added start
 	long int dummy_int;
 	joystick_node = open("/dev/uinput", O_WRONLY | O_NONBLOCK);  //was open...did I mean popen
-	//parameter_storage_file = fopen("/home/todd/gatt_four/bluez-5.49/attrib/speed_parameters.txt","r");
-	  parameter_storage_file = fopen("/home/toddwestley/bluez-5.49/attrib/speed_parameters.txt","r");
-	dummy_int = fscanf(parameter_storage_file,"%f\n",&spd_parameters.speed_gradient);
-	dummy_int = fscanf(parameter_storage_file,"%f\n",&spd_parameters.speed_delta);
-	dummy_int = fscanf(parameter_storage_file,"%f\n",&spd_parameters.top_speed);
+	//parameter_storage_file = fopen("/home/toddwestley/Downloads/bluez-5.66/bluez-5.66/attrib/speed_parameters.txt","r");
+	  parameter_storage_file = fopen("/home/toddwestley/Downloads/bluez-5.66/bluez-5.66/attrib/speed_parameters.txt","r");
+	dummy_int = fscanf(parameter_storage_file,"%f\n",&param_one.speed_gradient);
+	dummy_int = fscanf(parameter_storage_file,"%f\n",&param_one.speed_delta);
+	dummy_int = fscanf(parameter_storage_file,"%f\n",&param_one.top_speed);
+	dummy_int = fscanf(parameter_storage_file,"%f\n",&param_one.last_thr0ttle_position);
 	fclose(parameter_storage_file);
 	printf("speed gradient    => %5.3f \n",spd_parameters.speed_gradient);
 	printf("speed speed delta => %5.3f \n",spd_parameters.speed_delta);
@@ -676,7 +681,7 @@ int main(int argc, char *argv[])
 	//joystick_node = open("/dev/uinput", O_WRONLY | O_NONBLOCK);
 	//joystick_node = fopen("/dev/uinput",  O_WRONLY | O_NONBLOCK ); //why 
 	  //joystick_node = fopen("/dev/uinput",  O_WRONLY | O_NONBLOCK ); //why 
-	ioctl(joystick_node, UI_SET_EVBIT, EV_ABS); // enable analog absolute position handling
+	ioctl( joystick_node , UI_SET_EVBIT, EV_ABS); // enable analog absolute position handling
 	setup_abs(joystick_node, ABS_THROTTLE,  -32767, 32767); //commented out as it cause an operation error // was ABS_THRROTTTJE
 	//static void setup_abs(int fd, unsigned chan, int min, int max);
 	//static void setup_abs(int fd, unsigned chan, int min, int max)
