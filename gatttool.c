@@ -23,7 +23,8 @@
  * /./home/todd/gatt_four/bluez-5.49/attrib/gatttool -b E5:97:EE:07:27:F2 -t random --char-write-req --handle=0x0025 --value=0100 --listen
  * from ~/gatt_four/bluez-5.49  make
  */
-
+//https://github.com/GrantEdwards/uinput-joystick-demo/blob/master/uinput-demo.c
+// https://github.com/GrantEdwards/uinput-joystick-demo/blob/master/uinput-demo.c
 #ifdef HAVE_CONFIG_H
 
 #include <config.h>
@@ -51,8 +52,8 @@
 #include <string.h>   // addded															found /usr/include/string.h
 //#include "/home/todd/ANT/gatt_one/bluez-5.18/attrib/trig_functions.h" // added		
 #include "/home/toddwestley/gatt_todd/trig_functions.h" // replaced above				found /home/toddwestley/gatt_todd/trig_functions.h
-#include <linux/uinput.h>  // added uinput uses fcntl.h NOT linx/fcntl!                                                     found /usr/include/linux/uinput.h
-//#include <fcntl.h>  // added but only linux/fcntl will make 															found /usr/include/fcntl.h
+#include <linux/uinput.h>  // added                                                     found /usr/include/linux/uinput.h
+//#include <fcntl.h>  // added and then deleted why??															found /usr/include/fcntl.h
 #include <linux/fcntl.h> //correct added												found /usr/include/linux/fcntl.h
 #include <unistd.h>  // added															found /usr/include/unistd.h
 #include <errno.h> // added for error handling											founf /usr/include/errno.h
@@ -70,11 +71,14 @@ double distance_traveled; //added to store distance travelled
 double current_speed; //added to store curremt speed
 double delta_wheel_event; //added to store change in wheel event times
 double approximate_speed; //added to store approximate speed
+int quit_iteratiom = 0; // added to forse quit
+int quit_time = 40;
+
 struct speed_parameters { //added to store speed parameters
 	float speed_gradient; //added to store speed parameters
 	float speed_delta;    //added to store speed parameters
 	float top_speed;      //added to store speed parameters
-	int   last_thr0ttle_position; //ADDED
+	int last_throttle_value;     //just added
 }  spd_parameters;        //added to store speed parameters
 struct speed_parameters param_one;  //added to store speed parameters
 FILE *parameter_storage_file;       // added to get speed parameters
@@ -82,9 +86,7 @@ int joystick_node; // fd  on https://github.com/GrantEdwards/uinput-joystick-dem
 //FILE *jostick_nodel;
 //int joystick_node; // * added?? delet so only get text ouput
 double speed_should_be;             // added
-struct input_event ev[2];           // added inpu event structure
-int quit_iteration= 0;
-int quit_time = 380;
+struct input_event ev[1];           // added inpu event structure WGY IS THIS TWO??
 
 static void setup_abs(int joystick_node, unsigned chan, int min, int max); //added
 //FILE *rc; // from https://01.org/linuxgraphics/gfx-docs/drm/input/uinput.html
@@ -140,19 +142,19 @@ static void events_handler(const uint8_t *pdu, uint16_t len, gpointer user_data)
 		g_print("Invalid opcode\n");
 		return;
 	}
-
-	//for (i = 3; i < len; i++) //removed to display as rotations and last wheel event time
-	//	g_print("%02x ", pdu[i]); //removed
-		//pdu[8] and pdu[9] form the last event
-		//pdu[4] pdu[5] are total rotations
-        // pdu seems to buit of u8's
-    g_print("quit iteration  %i  ",quit_iteration); //add to force exit
-    quit_iteration = quit_iteration+1;    
-    g_print("    rotations = ");     //added for debugging
-    g_print("%i",pdu[4]+pdu[5]*256); //added for debugging
-    g_print("    event time = ");    //added for debugging
-    g_print("%i",pdu[8]+pdu[9]*256); //added for debugging
-	
+    quit_iteratiom = quit_iteratiom+1;
+    printf(" it=> %2i", quit_time-quit_iteratiom);
+    printf("    rotations = ");     //added for debugging //was g_print
+    printf("%i",pdu[4]+pdu[5]*256); //added for debugging
+    printf("    event time = ");    //added for debugging
+    printf("%6i",pdu[8]+pdu[9]*256); //added for debugging
+	if (quit_iteratiom >= quit_time)
+	{
+		printf("QUIT NOW!\n");
+		//quit_iteratiom =(float) 7/ (7-7);  //force divide y zero!!
+		goto done;
+		g_main_loop_quit(event_loop);
+	}
 	//addition begins here
 	distance_traveled = (pdu[4]+pdu[5]*256)*wheel_circumference/1000/1000*miles_per_kilometer;
 	if (times_through <= 0)
@@ -165,20 +167,19 @@ static void events_handler(const uint8_t *pdu, uint16_t len, gpointer user_data)
 		{	current_rotations = pdu[4]+pdu[5]*256;
 			wheel_event_current = pdu[8]+pdu[9]*256;
 			
+
 			if (wheel_event_current > wheel_event_previous)
 				{	delta_wheel_event = wheel_event_current - wheel_event_previous;
 				}
 			else
 				{	delta_wheel_event = 65536+ wheel_event_current - wheel_event_previous;
 				}
-			//delta_wheel_event = mod((wheel_event_current - wheel_event_previous),65536);	
+
 			approximate_speed = (current_rotations-previous_rotations)*wheel_circumference/1000/1000*3600*miles_per_kilometer;
 			current_speed = approximate_speed* 1024/delta_wheel_event;
-			//speed_should_be =    (-exp_todd(-global_miles      /8.61)*9.77+25.0); //another typo fixed
 			speed_should_be = -exp_todd(-distance_traveled/spd_parameters.speed_gradient)*spd_parameters.speed_delta+spd_parameters.top_speed;
 			
-			//speed_should_be = -distance_traveled / spd_parameters.speed_gradient*spd_parameters.speed_delta;
-			//speed_should_be = speed_should_be + spd_parameters.top_speed;
+
 			
 			speed_should_be =  floor(-current_speed/speed_should_be*65536+32768);
 		}
@@ -186,42 +187,41 @@ static void events_handler(const uint8_t *pdu, uint16_t len, gpointer user_data)
 	wheel_event_previous = wheel_event_current;
 	previous_rotations = current_rotations;
 	g_print(" dist = ");
-	g_print("%f",distance_traveled);
+	g_print("%f4",distance_traveled);
 	g_print(" speed = ");
-	g_print("%f",current_speed);
+	g_print("%f4",current_speed);
 	g_print(" sent to joystick = ");
-	g_print("%f",speed_should_be);
-	if (quit_iteration > quit_time)
-		{	g_print("trying to quit!\n");
-			g_main_loop_quit(event_loop);
-			goto done;
-		}
+	
 	if (speed_should_be>32767)
 		speed_should_be = 32767;
 	if (speed_should_be < -32767)
 		speed_should_be = -32767;
+	//band aid below
+	if (speed_should_be == 0) //then
+		{speed_should_be= spd_parameters.last_throttle_value;\
+			printf("Joystick forced to be zero\n");}
+			
+	//band aid above
+		
+	g_print("%i",(int)speed_should_be); // should this be %i???  speed shoulb be is a double
 	previous_rotations= current_rotations;
 	memset(&ev,0,sizeof ev); //just add 2:39 2019_10_30
 	ev[0].type = EV_ABS;
-	ev[0].code = ABS_THROTTLE    ;    //was ev[0].code = ABS_THROTTLE;
-	ev[1].type = EV_SYN;
-	ev[1].code = SYN_REPORT;
-	ev[1].value = 0;
+	ev[0].code = ABS_X; //was ev[0].code = ABS_THROTTLE; restored to ABS_X
+	ev[0].value = (int)speed_should_be;
+	//ev[1].type = EV_SYN;
+	//ev[1].code = SYN_REPORT;
+	//ev[1].value = 0;
 
-    ev[0].value = floor(speed_should_be); // throttle set the value in the loop! // how do you convert mileage into speed
-    //if (ev[0].value < -32767) ev[0].value = -32765;
-    //if (ev[0].value >  32767) ev[0].value =  32765;
-    
-    if(write(joystick_node, &ev, sizeof ev) < 0)
-        {
-          perror("write");
-          //return 1;
-          return;
-        }
+    //ev[0].value = (int)(floor(speed_should_be)); // throttle set the value in the loop! // how do you convert mileage into speed mabe this b
+    write( joystick_node, &ev, sizeof ev); //eas this line missing??
     parameter_storage_file = fopen("/home/toddwestley/Downloads/bluez-5.66/bluez-5.66/attrib/speed_parameters.txt","w");
-    fprintf(parameter_storage_file,"%f\n%f\n%f\n%f\n", param_one.speed_gradient, param_one.speed_delta,param_one.top_speed, param_one.last_thr0ttle_position);	
+    fprintf(parameter_storage_file,"%f\n",spd_parameters.speed_gradient);
+    fprintf(parameter_storage_file,"%f\n",spd_parameters.speed_delta);
+    fprintf(parameter_storage_file,"%f\n",spd_parameters.top_speed);
+    fprintf(parameter_storage_file,"%i\n",(int)speed_should_be);
     fclose(parameter_storage_file);
-	//addition ends here
+    
 	g_print("\n");	
 	if (pdu[0] == ATT_OP_HANDLE_NOTIFY)
 		return;
@@ -231,9 +231,8 @@ static void events_handler(const uint8_t *pdu, uint16_t len, gpointer user_data)
 
 	if (olen > 0)
 		g_attrib_send(attrib, 0, opdu, olen, NULL, NULL, NULL);
-	
 	done:
-		g_main_loop_quit(event_loop);
+		g_main_loop_quit(event_loop);	// I hope this forces quit
 }
 
 static gboolean listen_start(gpointer user_data)
@@ -648,19 +647,19 @@ static GOptionEntry options[] = {
 		"Set security level. Default: low", "[low | medium | high]"},
 	{ NULL },
 };
-static void setup_abs(int fd, unsigned chan, int min, int max) //was int
+static void setup_abs(int joystick_node, unsigned chan, int min, int max) //was int
 {
-  if (ioctl(fd, UI_SET_ABSBIT, chan))
+  if (ioctl(joystick_node , UI_SET_ABSBIT, chan))
     perror("UI_SET_ABSBIT");
 
   struct uinput_abs_setup s =
     {
      .code = chan,
      //.absinfo = { .minimum = min,  .maximum = max },
-     .absinfo = { .minimum = -32726,  .maximum = 32767 },
+     .absinfo = { .minimum = -32767,  .maximum = 32767 },
     };
 
-  if (ioctl(fd, UI_ABS_SETUP, &s))
+  if (ioctl(joystick_node , UI_ABS_SETUP, &s))
     perror("UI_ABS_SETUP");
 } //added setup_abs
 
@@ -668,113 +667,60 @@ int main(int argc, char *argv[])
 {   //added start
 	long int dummy_int;
 	joystick_node = open("/dev/uinput", O_WRONLY | O_NONBLOCK);  //was open...did I mean popen
-	//parameter_storage_file = fopen("/home/toddwestley/Downloads/bluez-5.66/bluez-5.66/attrib/speed_parameters.txt","r");
-	  parameter_storage_file = fopen("/home/toddwestley/Downloads/bluez-5.66/bluez-5.66/attrib/speed_parameters.txt","r");
-	dummy_int = fscanf(parameter_storage_file,"%f\n",&param_one.speed_gradient);
-	dummy_int = fscanf(parameter_storage_file,"%f\n",&param_one.speed_delta);
-	dummy_int = fscanf(parameter_storage_file,"%f\n",&param_one.top_speed);
-	dummy_int = fscanf(parameter_storage_file,"%f\n",&param_one.last_thr0ttle_position);
+	//parameter_storage_file = fopen("/home/todd/gatt_four/bluez-5.49/attrib/speed_parameters.txt","r");
+  // parameter_storage_file = fopen("/home/toddwestley/bluez-5.49/attrib/speed_parameters.txt","r");
+	 parameter_storage_file = fopen("/home/toddwestley/Downloads/bluez-5.66/bluez-5.66/attrib/speed_parameters.txt","r");
+	dummy_int = fscanf(parameter_storage_file,"%f\n",&spd_parameters.speed_gradient);
+	dummy_int = fscanf(parameter_storage_file,"%f\n",&spd_parameters.speed_delta);
+	dummy_int = fscanf(parameter_storage_file,"%f\n",&spd_parameters.top_speed);
+	dummy_int = fscanf(parameter_storage_file,"%d\n",&spd_parameters.last_throttle_value);  //was %I!
+	printf("dummy_int =? %i\n", dummy_int);
+	
+	//need to write and retain the speed
 	fclose(parameter_storage_file);
-	printf("speed gradient    => %5.3f \n",spd_parameters.speed_gradient);
-	printf("speed speed delta => %5.3f \n",spd_parameters.speed_delta);
-	printf("top speed         => %5.3f \n",spd_parameters.top_speed);
+	printf("speed gradient     => %5.3f \n",spd_parameters.speed_gradient);
+	printf("speed speed delta  => %5.3f \n",spd_parameters.speed_delta);
+	printf("top speed          => %5.3f \n",spd_parameters.top_speed);
+	printf("last joystick value=> %i\n", spd_parameters.last_throttle_value);
+	
 	//joystick_node = open("/dev/uinput", O_WRONLY | O_NONBLOCK);
 	//joystick_node = fopen("/dev/uinput",  O_WRONLY | O_NONBLOCK ); //why 
 	  //joystick_node = fopen("/dev/uinput",  O_WRONLY | O_NONBLOCK ); //why 
-	ioctl( joystick_node , UI_SET_EVBIT, EV_ABS); // enable analog absolute position handling
-	setup_abs(joystick_node, ABS_THROTTLE,  -32767, 32767); //commented out as it cause an operation error // was ABS_THRROTTTJE
-	//static void setup_abs(int fd, unsigned chan, int min, int max);
-	//static void setup_abs(int fd, unsigned chan, int min, int max)
-	int error_ioctl = ioctl(joystick_node, UI_SET_ABSBIT, EV_ABS);
-	//printf("ioctl error == %i\n", error_ioctl);  // caused an error w/o sudo
-	//printf("error number == %i\n",errno); // caused an error w/o sudo
-	//setup_abs(joystick_node,ABS_THROTTLE, -32767,3276);	
-	sprintf(setup_two.name, "Todd Westley joystick");
-	setup_two.id.bustype = BUS_USB;
-	setup_two.id.vendor = 0x2;
-	setup_two.id.product = 0x3;
-	setup_two.id.version = 2;
-	if (ioctl(joystick_node, UI_DEV_SETUP, &setup_two))
+	ioctl(joystick_node, UI_SET_EVBIT, EV_ABS); // enable analog absolute position handling 
+	setup_abs(joystick_node, ABS_X,  -32767, 32767); //commented out as it cause an operation error // was ABS_THRROTTTLE
+    struct uinput_setup setup =
+    {
+		.name = "Todd Westley's Joystick",
+		.id  =
+		{
+			.bustype = BUS_USB,
+			.vendor =  0x3,
+			.product = 0x3,
+			.version = 2,
+		}
+	};
+
+	int error_ioctl =ioctl(joystick_node, UI_DEV_SETUP, &setup);
+//                   ioctl(fd           , UI_DEV_SETUP, &setup))
+	if (ioctl(joystick_node, UI_DEV_CREATE))
+//     (ioctl(fd           , UI_DEV_CREATE))	
 	{
 		perror("UI_DEV_SETUP");
 		return 1;
     }
-	if (ioctl(joystick_node, UI_DEV_CREATE))
-    {
-		perror("UI_DEV_CREATE");
-		return 1;
-    }
-    memset(&ev,0,sizeof ev);
-    ev[0].type = EV_ABS;
-    ev[0].code = ABS_THROTTLE; //was ABS_THROTTLE;
-    ev[0].value = 32767; // maxint so backwards throttle is zero initially
-    ev[1].type = EV_SYN;
-    ev[1].code = SYN_REPORT;
-    ev[1].value = 0;
-    
-	/* commented out to avoid error
-	
-	{
-		
-		return 1;
-    }
-	if (ioctl(joystick_node, UI_DEV_CREATE))
-    {
-		perror("UI_DEV_CREATE");
-		return 1;
-    } */
-	//joystick_node = fopen("/dev/input/js7","w");
-	// int fd = open("/dev/uinput", O_WRONLY | O_NONBLOCK);
-	
-	/*
-	 0000f10 2e30 0126 966e 0302 2e38 0126 82a3 0302 throttle fwd
-	 0001030 ebf4 0126 aa3a 0302 ebfc 0126 8001 0302
-     00010c0 4210 0127 aa3a 0302 4218 0127 9912 0302
-     0000980 f26c 0127 8be0 0302 f28c 0127 8547 0302
-     0000d10 1d20 012a 87ea 0302 1d28 012a 8001 0302
-     0000de0 7bbc 012a 8151 0302 7bc4 012a 8001 0302
-     
-     0000a00 4b7c 0128 5322 0302 4b84 0128 717c 0302 throttle back
-     0000aa0 b358 0128 659b 0302 b360 0128 7fff 0302
-     0000b10 3a24 0129 51d0 0302 3a2c 0129 7815 0302
-     0000b50 859c 0129 6ed8 0302 85a4 0129 7815 0302
-	 0000eb0 d8ec 012a 7815 0302 d8f4 012a 7fff 0302
-	 * 
-     * 
-	 * //fd = open("/dev/input/uinput", O_WRONLY | O_NONBLOCK);
-	joystick_node = fopen("/dev/uinput", "r+");
-	dummy_int = fileno(joystick_node);
-	printf("\n");
-	ioctl(dummy_int, UI_SET_EVBIT, EV_ABS); */
-	
-	//joystick_node = fopen("/dev/uinput", "r+");
-	
-	//ioctl(joystick_node, UI_SET_EVBIT, EV_ABS);
-	//setup_abs(joystick_node, ABS_THROTTLE,  -32767, 32767);
-	
-	//rc = ioctl(joystick_node, UI_GET_VERSION, &version);
-	
-	
-	/*//ioctl(joystick_node, UI_SET_EVBIT, EV_ABS);
-	//setup_abs(joystick_node, ABS_THROTTLE,  -32767, 32767);
-	sprintf(setup_two.name, "Userspace joystick");
-	setup_two.id.bustype = BUS_USB;
-	setup_two.id.vendor = 0x2;
-	setup_two.id.product = 0x3;
-	setup_two.id.version = 2;
-
-	//i
-	//{
-	
-	//	return 1;
-    //}
 	//if (ioctl(joystick_node, UI_DEV_CREATE))
     //{
 	//	perror("UI_DEV_CREATE");
 	//	return 1;
-    //} */
-    
-	//added stop.
+    //}
+    memset(&ev,0,sizeof ev);
+    ev[0].type = EV_ABS;
+    ev[0].code = ABS_X; //was ABS_X; //returned to ABS_X;
+    ev[0].value = param_one.last_throttle_value; // last_throttle_value; 
+    //ev[1].type = EV_SYN;
+    //ev[1].code = SYN_REPORT;
+    //ev[1].value = 0;
+    write( joystick_node, &ev, sizeof ev); // added this line
 	GOptionContext *context;
 	GOptionGroup *gatt_group, *params_group, *char_rw_group;
 	GError *gerr = NULL;
