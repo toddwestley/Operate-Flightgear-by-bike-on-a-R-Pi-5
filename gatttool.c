@@ -72,7 +72,8 @@ double current_speed; //added to store curremt speed
 double delta_wheel_event; //added to store change in wheel event times
 double approximate_speed; //added to store approximate speed
 int quit_iteratiom = 0; // added to forse quit
-int quit_time = 40;
+int quit_time = 380;
+int updateTIMES = 0;
 
 struct speed_parameters { //added to store speed parameters
 	float speed_gradient; //added to store speed parameters
@@ -214,7 +215,9 @@ static void events_handler(const uint8_t *pdu, uint16_t len, gpointer user_data)
 	//ev[1].value = 0;
 
     //ev[0].value = (int)(floor(speed_should_be)); // throttle set the value in the loop! // how do you convert mileage into speed mabe this b
-    write( joystick_node, &ev, sizeof ev); //eas this line missing??
+    for (updateTIMES = 0; updateTIMES <=499; updateTIMES++)
+		{	write( joystick_node, &ev, sizeof ev);	} //was this line missing??
+    
     parameter_storage_file = fopen("/home/toddwestley/Downloads/bluez-5.66/bluez-5.66/attrib/speed_parameters.txt","w");
     fprintf(parameter_storage_file,"%f\n",spd_parameters.speed_gradient);
     fprintf(parameter_storage_file,"%f\n",spd_parameters.speed_delta);
@@ -232,7 +235,9 @@ static void events_handler(const uint8_t *pdu, uint16_t len, gpointer user_data)
 	if (olen > 0)
 		g_attrib_send(attrib, 0, opdu, olen, NULL, NULL, NULL);
 	done:
-		g_main_loop_quit(event_loop);	// I hope this forces quit
+		{	printf("/n/nEntered QUIT\n\n");
+			g_main_loop_quit(event_loop);
+			}	// I hope this forces quit
 }
 
 static gboolean listen_start(gpointer user_data)
