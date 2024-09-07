@@ -6,7 +6,7 @@ My rear wheel was already equipped with a Wahoo speed sensor: “https://www.ama
 
 The bike is fixed to a trainer stand.  I built a standing desk from 8020 extrusions.  I adorned the extrusions with part of an old shelf.  I use a plastic cover over the keyboard.  You can try my scheme without the plastic shield if you are good at not breaking a sweat.  Also, I ride in the basement, facing a screen that is the Pi 5’s display next to two fans.  One is for my comfort; the second is to blow sweat away from my bike’s bottom bracket.  Again, if you don’t sweat you can ignore these features.
 
-I wrote a script that executes a modified version of gatttool (the modified gatttool now requires elevated privileges: i.e sudo) that translate the speed of your bike’s rear wheel into a joystick throttle position.
+I wrote a scriptS that executes a modified version of gatttool (the modified gatttool now requires elevated privileges: i.e sudo) that translate the speed of your bike’s rear wheel into a joystick throttle position.
 
 Gatttool was created by downloading the distribution of blueZ-5.66  – “bluez-5.66.tar.xz” -→”http://www.kernel.org/pub/linux/bluetooth/bluez-5.66.tar.xz”  This was  expanded.  From the directory formed by the expansion of bluez-5.66, I executed the following commands:
 	./configure –enable-depricated
@@ -20,7 +20,7 @@ I the replaced the version of gatttool in the attrib directory.  I redid:
 
 I then copied the created version of gatttool to usrbin/gatttool using elevated privileges.
 
-In its current for the new version of gatttool when executed with elevated privileges will form a joystick node that will adjust flightgear throttle.  My version of gatttool will run until just before sudo exceeds its timeout.  I think this somehow adjustable on a Pi 5 but I can not figure out how. Instead I wrote a script file that will execute gatttool until just before is sudo privileges reach its timouts, sleep for 2 seconds, and finally restart gatttool.  This script will execute about an hour.  If want it to go, on add more copies of last few lines.  The script it halted by pressing <ctrl> <c>.  This quirk will cause the  throttle to be frozen it it’s current position, drop or rise to 50% for one second then return to the position dictated by your bikes rear wheel.  Please be aware this quirk.
+In its current for the new version of gatttool when executed with elevated privileges will form a joystick node that will adjust flightgear throttle.  My version of gatttool will run until just before sudo exceeds its timeout.  Today, 2024 September 7, I attempted a flight from KIIY to KOGB using my modified version gatttool.  I modifed the collectDATA script and add a collectDAT script.    I initiated my flight with the collectDATA script and continue repetitively with the collectDAT script.  When gatttool quits, simply press the up arrow and delete the last ‘A’ if required. 
 
 Please help me add omitted details from my explanation.
 
