@@ -23,6 +23,7 @@ On September 28, 2024, I completed a virtual flight from 4J2 (Berrien County) to
 	a pidture showing my flight from skyvector
 	the “speed_parameters.txt”, I used
 
+I wish to openly acknowledge the help I got from the Holy Spirit. 
 
 
 Please help me add omitted details from my explanation.
