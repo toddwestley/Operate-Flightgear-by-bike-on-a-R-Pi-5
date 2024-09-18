@@ -72,7 +72,7 @@ double current_speed; //added to store curremt speed
 double delta_wheel_event; //added to store change in wheel event times
 double approximate_speed; //added to store approximate speed
 int quit_iteratiom = 0; // added to forse quit
-int quit_time = 380;
+int quit_time =4800;// was int quit_time = 380 thn 498;
 int updateTIMES = 0;
 
 struct speed_parameters { //added to store speed parameters
@@ -198,7 +198,7 @@ static void events_handler(const uint8_t *pdu, uint16_t len, gpointer user_data)
 	if (speed_should_be < -32767)
 		speed_should_be = -32767;
 	//band aid below
-	if (speed_should_be == 0) //then
+	if (fabs(speed_should_be) <= 0.1) //then
 		{speed_should_be= spd_parameters.last_throttle_value;\
 			printf("Joystick forced to be zero\n");}
 			
