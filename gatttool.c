@@ -194,9 +194,9 @@ static void events_handler(const uint8_t *pdu, uint16_t len, gpointer user_data)
 	g_print(" sent to joystick = ");
 	
 	if (speed_should_be>32767)
-		speed_should_be = 32767;
+		speed_should_be = 32700; //Could not idle
 	if (speed_should_be < -32767)
-		speed_should_be = -32767;
+		speed_should_be = -32767; 
 	//band aid below
 	if (fabs(speed_should_be) <= 0.1) //then
 		{speed_should_be= spd_parameters.last_throttle_value;\
