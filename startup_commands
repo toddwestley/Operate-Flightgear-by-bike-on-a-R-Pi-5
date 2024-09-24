@@ -1,0 +1,6 @@
+sudo -v
+echo sudo -v
+sudo systemctl enable bluetooth
+echo systemctl enable bluetooth
+sudo systemctl start bluetooth
+echo systemctl start bluetooth
