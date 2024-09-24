@@ -22,8 +22,8 @@ echo "GO GO GO GO GO GO GO!!!!!!!!!!!!!!!!!!!!!"
 for i in {1..1}
 do
 	echo "Welcome $i times" 
-	sudo /usr/bin/gatttool -b D5:1A:DE:86:93:E9 -t random --char-write-req --handle=0x0025 --value=0100 --listen 2>&1 | tee $TIMEDATENOW ##on bike
-	#sudo /usr/bin/gatttool -b E5:97:EE:07:27:F2 -t random --char-write-req --handle=0x0025 --value=0100 --listen 2>&1 | tee $TIMEDATENOW  ##on dtand
+	#sudo /usr/bin/gatttool -b D5:1A:DE:86:93:E9 -t random --char-write-req --handle=0x0025 --value=0100 --listen 2>&1 | tee $TIMEDATENOW ##on bike
+	sudo /usr/bin/gatttool -b E5:97:EE:07:27:F2 -t random --char-write-req --handle=0x0025 --value=0100 --listen 2>&1 | tee $TIMEDATENOW  ##on stand
 	ip link set wlan0 down ## does this work
 	helloWord
 done
