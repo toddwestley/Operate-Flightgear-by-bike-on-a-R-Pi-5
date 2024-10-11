@@ -74,6 +74,7 @@ double approximate_speed; //added to store approximate speed
 int quit_iteratiom = 0; // added to forse quit
 int quit_time =4800;// was int quit_time = 380 thn 498;
 int updateTIMES = 0;
+int throttleHIGHlimit = 0;
 
 struct speed_parameters { //added to store speed parameters
 	float speed_gradient; //added to store speed parameters
@@ -88,6 +89,7 @@ int joystick_node; // fd  on https://github.com/GrantEdwards/uinput-joystick-dem
 //int joystick_node; // * added?? delet so only get text ouput
 double speed_should_be;             // added
 struct input_event ev[1];           // added inpu event structure WGY IS THIS TWO??
+int maxthrrottleDRop = 4095;
 
 static void setup_abs(int joystick_node, unsigned chan, int min, int max); //added
 //FILE *rc; // from https://01.org/linuxgraphics/gfx-docs/drm/input/uinput.html
@@ -193,8 +195,10 @@ static void events_handler(const uint8_t *pdu, uint16_t len, gpointer user_data)
 	g_print("%f4",current_speed);
 	g_print(" sent to joystick = ");
 	
-	if (speed_should_be>32767)
-		speed_should_be = 32700; //Could not idle
+	if (speed_should_be>throttleHIGHlimit)
+		{speed_should_be = throttleHIGHlimit;
+		 speed_should_be = fmin(speed_should_be , throttleHIGHlimit);
+		 throttleHIGHlimit=fmin(throttleHIGHlimit+4095,32767);	} //Could not idle
 	if (speed_should_be < -32767)
 		speed_should_be = -32767; 
 	//band aid below
@@ -216,7 +220,12 @@ static void events_handler(const uint8_t *pdu, uint16_t len, gpointer user_data)
 
     //ev[0].value = (int)(floor(speed_should_be)); // throttle set the value in the loop! // how do you convert mileage into speed mabe this b
     for (updateTIMES = 0; updateTIMES <=499; updateTIMES++)
-		{	write( joystick_node, &ev, sizeof ev);	} //was this line missing??
+		{   //=FLOOR($B$1-(($B$1-$B$2)*B4/499))
+			// B1 --> THROTTLE WAS
+			// n2 -> THRITTLR WILL BE
+			//ev[0].value =(int)(spd_parameters.last_throttle_value+ (spd_parameters.last_throttle_value - speed_should_be)+updateTIMES/499);
+			ev[0].value = (int)speed_should_be;
+			write( joystick_node, &ev, sizeof ev);	} //was this line missing??
     
     parameter_storage_file = fopen("/home/toddwestley/Downloads/bluez-5.66/bluez-5.66/attrib/speed_parameters.txt","w");
     fprintf(parameter_storage_file,"%f\n",spd_parameters.speed_gradient);
