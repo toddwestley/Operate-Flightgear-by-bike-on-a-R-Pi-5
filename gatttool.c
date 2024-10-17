@@ -52,6 +52,7 @@
 #include <string.h>   // addded															found /usr/include/string.h
 //#include "/home/todd/ANT/gatt_one/bluez-5.18/attrib/trig_functions.h" // added		
 #include "/home/toddwestley/gatt_todd/trig_functions.h" // replaced above				found /home/toddwestley/gatt_todd/trig_functions.h
+//#include <math.h>
 #include <linux/uinput.h>  // added                                                     found /usr/include/linux/uinput.h
 //#include <fcntl.h>  // added and then deleted why??															found /usr/include/fcntl.h
 #include <linux/fcntl.h> //correct added												found /usr/include/linux/fcntl.h
@@ -180,7 +181,7 @@ static void events_handler(const uint8_t *pdu, uint16_t len, gpointer user_data)
 
 			approximate_speed = (current_rotations-previous_rotations)*wheel_circumference/1000/1000*3600*miles_per_kilometer;
 			current_speed = approximate_speed* 1024/delta_wheel_event;
-			speed_should_be = -exp_todd(-distance_traveled/spd_parameters.speed_gradient)*spd_parameters.speed_delta+spd_parameters.top_speed;
+			speed_should_be = -exp(-distance_traveled/spd_parameters.speed_gradient)*spd_parameters.speed_delta+spd_parameters.top_speed; //was exp_todd why I don't think was working
 			
 
 			
@@ -199,6 +200,9 @@ static void events_handler(const uint8_t *pdu, uint16_t len, gpointer user_data)
 		{speed_should_be = throttleHIGHlimit;
 		 speed_should_be = fmin(speed_should_be , throttleHIGHlimit);
 		 throttleHIGHlimit=fmin(throttleHIGHlimit+4095,32767);	} //Could not idle
+	else
+		throttleHIGHlimit = 0; //to allow muliple attempts to idle throttle
+		
 	if (speed_should_be < -32767)
 		speed_should_be = -32767; 
 	//band aid below
@@ -226,13 +230,14 @@ static void events_handler(const uint8_t *pdu, uint16_t len, gpointer user_data)
 			//ev[0].value =(int)(spd_parameters.last_throttle_value+ (spd_parameters.last_throttle_value - speed_should_be)+updateTIMES/499);
 			ev[0].value = (int)speed_should_be;
 			write( joystick_node, &ev, sizeof ev);	} //was this line missing??
-    
+    /*
     parameter_storage_file = fopen("/home/toddwestley/Downloads/bluez-5.66/bluez-5.66/attrib/speed_parameters.txt","w");
     fprintf(parameter_storage_file,"%f\n",spd_parameters.speed_gradient);
     fprintf(parameter_storage_file,"%f\n",spd_parameters.speed_delta);
     fprintf(parameter_storage_file,"%f\n",spd_parameters.top_speed);
     fprintf(parameter_storage_file,"%i\n",(int)speed_should_be);
     fclose(parameter_storage_file);
+    */
     
 	g_print("\n");	
 	if (pdu[0] == ATT_OP_HANDLE_NOTIFY)
