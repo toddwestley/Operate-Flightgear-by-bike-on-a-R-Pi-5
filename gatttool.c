@@ -199,7 +199,7 @@ static void events_handler(const uint8_t *pdu, uint16_t len, gpointer user_data)
 	if (speed_should_be>throttleHIGHlimit)
 		{speed_should_be = throttleHIGHlimit;
 		 speed_should_be = fmin(speed_should_be , throttleHIGHlimit);
-		 throttleHIGHlimit=fmin(throttleHIGHlimit+4095,32767);	} //Could not idle
+		 throttleHIGHlimit=fmin(throttleHIGHlimit+2047,32767);	} //Could not idle
 	else
 		throttleHIGHlimit = 0; //to allow muliple attempts to idle throttle
 		
