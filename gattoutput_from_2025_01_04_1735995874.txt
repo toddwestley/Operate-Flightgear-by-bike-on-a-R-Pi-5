@@ -1,0 +1,77 @@
+dummy_int =? 1
+speed gradient     => 8.610 
+speed speed delta  => 11.770 
+top speed          => 25.500 
+last joystick value=> 32767
+ it=> 4799    rotations = 16493    event time =   1382 dist = 21.4803784 speed = 0.0000004 sent to joystick = Joystick forced to be zero
+32767
+Characteristic value was wrIItten successfully
+ hello world
+ it=> 4798    rotations = 16493    event time =   1382 dist = 21.4803784 speed = 57297.5869194 sent to joystick = -32767
+ it=> 4797    rotations = 16493    event time =   1382 dist = 21.4803784 speed = 0.0000004 sent to joystick = Joystick forced to be zero
+32767
+ it=> 4796    rotations = 16493    event time =   1382 dist = 21.4803784 speed = 0.0000004 sent to joystick = 2047
+ it=> 4795    rotations = 16493    event time =   1382 dist = 21.4803784 speed = 0.0000004 sent to joystick = 4094
+ it=> 4794    rotations = 16493    event time =   1382 dist = 21.4803784 speed = 0.0000004 sent to joystick = 6141
+ it=> 4793    rotations = 16493    event time =   1382 dist = 21.4803784 speed = 0.0000004 sent to joystick = 8188
+ it=> 4792    rotations = 16493    event time =   1382 dist = 21.4803784 speed = 0.0000004 sent to joystick = 10235
+ it=> 4791    rotations = 16493    event time =   1382 dist = 21.4803784 speed = 0.0000004 sent to joystick = 12282
+ it=> 4790    rotations = 16493    event time =   1382 dist = 21.4803784 speed = 0.0000004 sent to joystick = 14329
+ it=> 4789    rotations = 16493    event time =   1382 dist = 21.4803784 speed = 0.0000004 sent to joystick = 16376
+ it=> 4788    rotations = 16493    event time =   1382 dist = 21.4803784 speed = 0.0000004 sent to joystick = 18423
+ it=> 4787    rotations = 16493    event time =   1382 dist = 21.4803784 speed = 0.0000004 sent to joystick = 20470
+ it=> 4786    rotations = 16493    event time =   1382 dist = 21.4803784 speed = 0.0000004 sent to joystick = 22517
+ it=> 4785    rotations = 16493    event time =   1382 dist = 21.4803784 speed = 0.0000004 sent to joystick = 24564
+ it=> 4784    rotations = 16493    event time =   1382 dist = 21.4803784 speed = 0.0000004 sent to joystick = 26611
+ it=> 4783    rotations = 16493    event time =   1382 dist = 21.4803784 speed = 0.0000004 sent to joystick = 28658
+ it=> 4782    rotations = 16493    event time =   1382 dist = 21.4803784 speed = 0.0000004 sent to joystick = 30705
+ it=> 4781    rotations = 16493    event time =   1382 dist = 21.4803784 speed = 0.0000004 sent to joystick = 32752
+ it=> 4780    rotations = 16493    event time =   1382 dist = 21.4803784 speed = 0.0000004 sent to joystick = 32767
+ it=> 4779    rotations = 16493    event time =   1382 dist = 21.4803784 speed = 0.0000004 sent to joystick = 32767
+ it=> 4778    rotations = 16493    event time =   1382 dist = 21.4803784 speed = 0.0000004 sent to joystick = 32767
+ it=> 4777    rotations = 16493    event time =   1382 dist = 21.4803784 speed = 0.0000004 sent to joystick = 32767
+ it=> 4776    rotations = 16493    event time =   1382 dist = 21.4803784 speed = 0.0000004 sent to joystick = 32767
+ it=> 4775    rotations = 16493    event time =   1382 dist = 21.4803784 speed = 0.0000004 sent to joystick = 32767
+ it=> 4774    rotations = 16493    event time =   1382 dist = 21.4803784 speed = 0.0000004 sent to joystick = 32767
+ it=> 4773    rotations = 16493    event time =   1382 dist = 21.4803784 speed = 0.0000004 sent to joystick = 32767
+ it=> 4772    rotations = 16493    event time =   1382 dist = 21.4803784 speed = 0.0000004 sent to joystick = 32767
+ it=> 4771    rotations = 16493    event time =   1382 dist = 21.4803784 speed = 0.0000004 sent to joystick = 32767
+ it=> 4770    rotations = 16493    event time =   1382 dist = 21.4803784 speed = 0.0000004 sent to joystick = 32767
+ it=> 4769    rotations = 16493    event time =   1382 dist = 21.4803784 speed = 0.0000004 sent to joystick = 32767
+ it=> 4768    rotations = 16493    event time =   1382 dist = 21.4803784 speed = 0.0000004 sent to joystick = 32767
+ it=> 4767    rotations = 16493    event time =   1382 dist = 21.4803784 speed = 0.0000004 sent to joystick = 32767
+ it=> 4766    rotations = 16493    event time =   1382 dist = 21.4803784 speed = 0.0000004 sent to joystick = 32767
+ it=> 4765    rotations = 16493    event time =   1382 dist = 21.4803784 speed = 0.0000004 sent to joystick = 32767
+ it=> 4764    rotations = 16493    event time =   1382 dist = 21.4803784 speed = 0.0000004 sent to joystick = 32767
+ it=> 4763    rotations = 16493    event time =   1382 dist = 21.4803784 speed = 0.0000004 sent to joystick = 32767
+ it=> 4762    rotations = 16493    event time =   1382 dist = 21.4803784 speed = 0.0000004 sent to joystick = 32767
+ it=> 4761    rotations = 16493    event time =   1382 dist = 21.4803784 speed = 0.0000004 sent to joystick = 32767
+ it=> 4760    rotations = 16493    event time =   1382 dist = 21.4803784 speed = 0.0000004 sent to joystick = 32767
+ it=> 4759    rotations = 16493    event time =   1382 dist = 21.4803784 speed = 0.0000004 sent to joystick = 32767
+ it=> 4758    rotations = 16493    event time =   1382 dist = 21.4803784 speed = 0.0000004 sent to joystick = 32767
+ it=> 4757    rotations = 16493    event time =   1382 dist = 21.4803784 speed = 0.0000004 sent to joystick = 32767
+ it=> 4756    rotations = 16493    event time =   1382 dist = 21.4803784 speed = 0.0000004 sent to joystick = 32767
+ it=> 4755    rotations = 16493    event time =   1382 dist = 21.4803784 speed = 0.0000004 sent to joystick = 32767
+ it=> 4754    rotations = 16493    event time =   1382 dist = 21.4803784 speed = 0.0000004 sent to joystick = 32767
+ it=> 4753    rotations = 16493    event time =   1382 dist = 21.4803784 speed = 0.0000004 sent to joystick = 32767
+ it=> 4752    rotations = 16493    event time =   1382 dist = 21.4803784 speed = 0.0000004 sent to joystick = 32767
+ it=> 4751    rotations = 16493    event time =   1382 dist = 21.4803784 speed = 0.0000004 sent to joystick = 32767
+ it=> 4750    rotations = 16493    event time =   1382 dist = 21.4803784 speed = 0.0000004 sent to joystick = 32767
+ it=> 4749    rotations = 16493    event time =   1382 dist = 21.4803784 speed = 0.0000004 sent to joystick = 32767
+ it=> 4748    rotations = 16493    event time =   1382 dist = 21.4803784 speed = 0.0000004 sent to joystick = 32767
+ it=> 4747    rotations = 16493    event time =   1382 dist = 21.4803784 speed = 0.0000004 sent to joystick = 32767
+ it=> 4746    rotations = 16493    event time =   1382 dist = 21.4803784 speed = 0.0000004 sent to joystick = 32767
+ it=> 4745    rotations = 16493    event time =   1382 dist = 21.4803784 speed = 0.0000004 sent to joystick = 32767
+ it=> 4744    rotations = 16493    event time =   1382 dist = 21.4803784 speed = 0.0000004 sent to joystick = 32767
+ it=> 4743    rotations = 16493    event time =   1382 dist = 21.4803784 speed = 0.0000004 sent to joystick = 32767
+ it=> 4742    rotations = 16493    event time =   1382 dist = 21.4803784 speed = 0.0000004 sent to joystick = 32767
+ it=> 4741    rotations = 16493    event time =   1382 dist = 21.4803784 speed = 0.0000004 sent to joystick = 32767
+ it=> 4740    rotations = 16493    event time =   1382 dist = 21.4803784 speed = 0.0000004 sent to joystick = 32767
+ it=> 4739    rotations = 16493    event time =   1382 dist = 21.4803784 speed = 0.0000004 sent to joystick = 32767
+ it=> 4738    rotations = 16493    event time =   1382 dist = 21.4803784 speed = 0.0000004 sent to joystick = 32767
+ it=> 4737    rotations = 16493    event time =   1382 dist = 21.4803784 speed = 0.0000004 sent to joystick = 32767
+ it=> 4736    rotations = 16493    event time =   1382 dist = 21.4803784 speed = 0.0000004 sent to joystick = 32767
+ it=> 4735    rotations = 16493    event time =   1382 dist = 21.4803784 speed = 0.0000004 sent to joystick = 32767
+ it=> 4734    rotations = 16493    event time =   1382 dist = 21.4803784 speed = 0.0000004 sent to joystick = 32767
+ it=> 4733    rotations = 16493    event time =   1382 dist = 21.4803784 speed = 0.0000004 sent to joystick = 32767
+ it=> 4732    rotations = 16493    event time =   1382 dist = 21.4803784 speed = 0.0000004 sent to joystick = 32767
