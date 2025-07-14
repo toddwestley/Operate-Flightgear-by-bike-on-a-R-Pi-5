@@ -51,7 +51,8 @@
 #include <stdio.h>    //added															found /usr/include/stdio.h
 #include <string.h>   // addded															found /usr/include/string.h
 //#include "/home/todd/ANT/gatt_one/bluez-5.18/attrib/trig_functions.h" // added		
-#include "/home/toddwestley/gatt_todd/trig_functions.h" // replaced above				found /home/toddwestley/gatt_todd/trig_functions.h
+//#include "/home/toddwestley/gatt_todd/trig_functions.h" // replaced above
+#include "trig_functions.h"
 //#include <math.h>
 #include <linux/uinput.h>  // added                                                     found /usr/include/linux/uinput.h
 //#include <fcntl.h>  // added and then deleted why??															found /usr/include/fcntl.h
