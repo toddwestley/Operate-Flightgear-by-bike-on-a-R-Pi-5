@@ -1,0 +1,14 @@
+#my sensor mac address
+E5:97:EE:07:27:F2
+#my speed gradient {mph/mi}
+12.000000
+#my speed delta {mph}
+10.000000
+#my maximum speed {mph}
+23.500000
+#latest throttle value
+32767
+#my preferred unit of length {miles or km}
+mi
+#my wheel circumference in mm
+2096

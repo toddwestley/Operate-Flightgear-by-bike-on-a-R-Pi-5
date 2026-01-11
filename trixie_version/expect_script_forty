@@ -1,0 +1,98 @@
+#!/usr/bin/expect -f
+
+# Set the timeout for expect commands (in seconds)
+set timeout 60
+
+# Get the device MAC address from the command-line arguments
+set device_mac [lindex $argv 0]
+
+# Spawn the bluetoothctl process
+spawn bluetoothctl
+# /usr/bin/bluetoothctl/bluetoothctl
+
+# Expect the bluetoothctl prompt
+expect "Agent registered"
+send "power off\r"
+
+expect "Changing power off succeeded"
+send "power on\r"
+
+expect "Changing power on succeeded"
+send "scan on\r"
+
+#expect "Discovery started"
+expect "Device $device_mac"
+
+#Stop scanning
+send "scan off\r"
+expect "Discovery stopped"
+
+#send "trust $device_mac\r"
+#expect {
+#    "Pairing successful" { puts "Pairing with $device_mac successful." }
+#    "Failed to pair" { puts "Pairing with $device_mac failed." }
+#    "bluetooth" { puts "Pairing with $device_mac failed (unexpected prompt)." }
+#}
+
+# Trust the device
+#send "trust $device_mac\r"
+#expect {
+#    "trust succeeded" { puts "Trust established for $device_mac." }
+#    "Failed to trust" { puts "Failed to trust $device_mac." }
+#    "bluetooth" { puts "Failed to trust $device_mac (unexpected prompt)." }
+#}
+
+send "connect $device_mac\r"
+expect "Connection successful"
+
+send "menu gatt\r"
+expect "ServicesResolved: yes"
+
+send "select-attribute 00002a5b-0000-1000-8000-00805f9b34fb\r"
+expect "#"
+
+send "acquire-notify\r"
+expect "/org/bluez/hci0/dev"
+
+for {set i 0} {$i < 5000} {incr i} {
+    # Commands to execute in each iteration
+    send "\r"
+	expect "/org/bluez/hci0/dev"
+}
+send "\r"
+expect "/org/bluez/hci0/dev"
+send "\r"
+expect "/org/bluez/hci0/dev"
+send "\r"
+expect "/org/bluez/hci0/dev"
+send "\r"
+expect "/org/bluez/hci0/dev"
+send "\r"
+expect "/org/bluez/hci0/dev"
+send "\r"
+expect "/org/bluez/hci0/dev"
+send "\r"
+expect "/org/bluez/hci0/dev"
+send "\r"
+expect "/org/bluez/hci0/dev"
+send "\r"
+expect "/org/bluez/hci0/dev"
+send "\r"
+expect "/org/bluez/hci0/dev"
+send "\r"
+expect "/org/bluez/hci0/dev"
+send "\r"
+expect "/org/bluez/hci0/dev"
+send "\r"
+expect "/org/bluez/hci0/dev"
+
+send "back\r"
+expect "/org/bluez/hci0/dev"
+
+send "power off\r"
+expect "Notify closed"
+
+send "quit\r"
+
+
+

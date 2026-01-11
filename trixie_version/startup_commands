@@ -1,0 +1,17 @@
+sudo -v
+echo sudo -v
+sudo systemctl start bluetooth
+sudo systemctl enable bluetooth
+#sudo systemctl enable bluetooth
+echo TRY sudo systemctl enable bluetooth
+#sudo systemctl start bluetooth
+echo TRY sudo systemctl start bluetooth
+
+# KJVL to KMKG
+# KRFD to KLWA
+# KPPO to KRFD
+# KVYS to KPPO
+#  KPNT to KVYS
+#  KTAZ to KCFJ
+#  Good landing followed verification of flying condition with takeoff.
+#  systemctl status blutooth

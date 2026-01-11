@@ -1,0 +1,20 @@
+#!/usr/bin/expect -f
+
+# Set the timeout for expect commands (in seconds)
+set timeout 60
+
+# Spawn the bluetoothctl process
+spawn bluetoothctl
+# /usr/bin/bluetoothctl/bluetoothctl
+
+# Expect the bluetoothctl prompt
+expect "Agent registered"
+send "power off\r"
+
+expect "Changing power off succeeded"
+send "power on\r"
+
+expect "Changing power on succeeded"
+send "scan on\r"
+
+expect "Wahoo SPEED"
