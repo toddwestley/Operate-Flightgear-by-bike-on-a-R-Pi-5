@@ -1,4 +1,4 @@
-﻿My goal was to operate FlightGear, controlling the simulation’s throttle position with the speed of my bike’s rear wheel, using a Raspberry Pi 5. A second goal, is two make thing simple enough that someone with only basic computer skills could repeat the feat. I am not there yet, but I have start somewhere.
+My goal was to operate FlightGear, controlling the simulation’s throttle position with the speed of my bike’s rear wheel, using a Raspberry Pi 5. A second goal, is two make thing simple enough that someone with only basic computer skills could repeat the feat. I am not there yet, but I have start somewhere.
 I purchased a Canakit Raspberry Pi 5 from Amazon: “https://www.amazon.com/CanaKit-Raspberry-Starter-Kit-PRO/dp/B0CRSNCJ6Y/ref=sr_1_1?crid=E50QUTI3IJ0V&dib=eyJ2IjoiMSJ9.Yp-_3HVcTHw7QZ8ENnr7e8AXueED-O9udMb5LwHI2UaNJufKjE57DFwNwZ87KMdeGaBG3v5EOjT-ne-K1ffvbfA4RblLhvn-Y5hxnAOw1gM077EvbDAIET5e5hzG4EvIbIqLlrF-FVRe8T6IiQvXJ0iLU59mgiXY6CxtVXBonP5nhJ09uOemHvgRA7FrtiCdMDuoScFsE45ezmgk6uqNJfykV7Y-9fceJM_4ia3bF54.Q3VKhP-QYbpxw1V23jOq-bDk4V2iDjoZCDByqvAoQ2s&dib_tag=se&keywords=raspberry%2Bpi%2B5&qid=1724173963&sprefix=%2Caps%2C96&sr=8-1&th=1”
 My rear wheel was already equipped with a Wahoo speed sensor: “https://www.amazon.com/Wahoo-Cycling-Speed-Sensor-Bluetooth/dp/B01DIE7LUG/ref=sr_1_3?crid=22BSYE0DDCLMN&dib=eyJ2IjoiMSJ9.yLk_I74wv6rfZZ3boBy2XQ6ZWsNAOkkohdlcvT6HCgOzqchESwaJOwQqmF3I0DNTOzGPPWmyeD43F7sZ7XF5kWC1u9bJp7B6Lo_quXJnAf5Mq7A94jYoNCTdm9hJnGsi6gQ01X5FjGrhHnnQ5qr1qTGxmScobpMbvhzQ1YPwMdA8b_jIy1kWqE-UfWMH_ZIuyRysuF4gHueziCuUTezWh6T1iw7SQZ4tnEZ02pyEGkMeh8P8yWaSGirP1EER12t5GSYQfATJuygWcTiUKZp6rK3ZaDP6bs1WerGHMOc8_rs.q2WxuRx1gYKLV6Jrpx2JFRUN-jFW4r-2ng9MceMlsCs&dib_tag=se&keywords=wahoo+speed+sensor&qid=1724174069&sprefix=WaHOO+SP%2Caps%2C79&sr=8-3”
 The bike is fixed to a trainer stand. I built a standing desk from 8020 extrusions. I adorned the extrusions with part of an old shelf. I use a plastic cover over the keyboard. You can try my scheme without the plastic shield if you are good at not breaking a sweat. Also, I ride in the basement, facing a screen that is the Pi 5’s display next to two fans. One is for my comfort; the second is to blow sweat away from my bike’s bottom bracket. Again, if you don’t sweat you can ignore these features.
@@ -22,6 +22,9 @@ On September 28, 2024, I completed a virtual flight from 4J2 (Berrien County) to
 	the script I used, sixthcollectData
 	a pidture showing my flight from skyvector
 	the “speed_parameters.txt”, I used
+
+To get this scheme to work on version of the PI operating system more advanced than bookworm (i.e. trixie), DOWNLOAD and follow directions in the presentation I put on my Google drive: “https://drive.google.com/file/d/1T_0q9CjpBYGtaz34yL0RD8VXyI8USSXH/view?usp=sharing”
+
 
 I wish to openly acknowledge the help I got from the Holy Spirit. 
 
