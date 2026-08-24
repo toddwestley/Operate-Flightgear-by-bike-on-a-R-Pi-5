@@ -1,0 +1,6 @@
+./startup_commands
+while true
+do
+	sudo ./createAjoystickSOmyBIKEcanFLY 
+	sleep 0.17  
+done
